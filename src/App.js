@@ -8,22 +8,13 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedStock: "AAPL",
-      selectedStockFromAPI: {
-        securityType: "N/A",
-        lastSalePrice: "1",
-        symbol: "AAPL"
-      }
+      selectedStock: "AAPL"
     };
   }
 
   setSelectedStock = selectedStock => {
     this.setState({ selectedStock });
     // this.setState({ selectedStock: selectedStock });
-  };
-
-  setSelectedStockFromAPI = selectedStock => {
-    this.setState({ selectedStockFromAPI: selectedStock });
   };
 
   render() {
@@ -43,13 +34,7 @@ class App extends Component {
             />
             <Route
               path="/stocks/:symbol"
-              render={() => (
-                <Stock
-                  selectedStock={this.state.selectedStock}
-                  setSelectedStockFromAPI={this.setSelectedStockFromAPI}
-                  selectedStockFromAPI={this.state.selectedStockFromAPI}
-                />
-              )}
+              render={() => <Stock selectedStock={this.state.selectedStock} />}
             />
           </Switch>
         </main>
