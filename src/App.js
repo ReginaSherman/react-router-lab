@@ -10,9 +10,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stocks: stocksData
+      stocks: stocksData,
+      stock: { symbol: "N/A", lastSalePrice: "N/A", securityType: "N/A" }
     };
   }
+
+  setStock = stock => {
+    this.setState({ stock });
+  };
+
   render() {
     return (
       <div>
@@ -32,7 +38,11 @@ class App extends Component {
           path="/stocks/:symbol"
           render={routerProps => {
             return (
-              <Stock match={routerProps.match} stocks={this.state.stocks} />
+              <Stock
+                match={routerProps.match}
+                setStock={this.setStock}
+                stock={this.state.stock}
+              />
             );
           }}
         />

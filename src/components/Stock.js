@@ -1,33 +1,25 @@
 import React, { Component } from "react";
 
 class Stock extends Component {
+  componentDidMount() {
+    const url =
+      "https://api.iextrading.com/1.0/tops?symbols=" +
+      this.props.match.params.symbol;
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        this.props.setStock(response[0]);
+      });
+  }
+
   render() {
-    const stocks = this.props.stocks;
-
-    let stock;
-    for (let i = 0; i < stocks.length; i++) {
-      if (this.props.match.params.symbol === stocks[i].symbol) {
-        stock = stocks[i];
-      }
-    }
-
-    /**
-      You can also refactor lines 8 - 12 to use .find() 
-     */
-    // let stock = this.props.stocks.find(
-    //   stock => stock.symbol === this.props.match.params.symbol
-    // );
-
+    const { stock } = this.props;
     return (
       <div>
-        <h2>
-          {stock.name} ({stock.symbol})
-        </h2>
+        <h2>({stock.symbol})</h2>
         <ul>
-          <li>Current Price: {stock.lastPrice}</li>
-          <li>Change: {stock.change}</li>
-          <li>High: {stock.high}</li>
-          <li>Low: {stock.low}</li>
+          <li>Last Sale Price: {stock.lastSalePrice}</li>
+          <li>Security Type: {stock.securityType}</li>
         </ul>
       </div>
     );
