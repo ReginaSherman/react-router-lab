@@ -2,7 +2,35 @@ import React, { Component } from "react";
 
 class Stock extends Component {
   render() {
-    return <h2>This is the Stock page.</h2>;
+    const stocks = this.props.stocks;
+
+    let stock;
+    for (let i = 0; i < stocks.length; i++) {
+      if (this.props.match.params.symbol === stocks[i].symbol) {
+        stock = stocks[i];
+      }
+    }
+
+    /**
+      You can also refactor lines 8 - 12 to use .find() 
+     */
+    // let stock = this.props.stocks.find(
+    //   stock => stock.symbol === this.props.match.params.symbol
+    // );
+
+    return (
+      <div>
+        <h2>
+          {stock.name} ({stock.symbol})
+        </h2>
+        <ul>
+          <li>Current Price: {stock.lastPrice}</li>
+          <li>Change: {stock.change}</li>
+          <li>High: {stock.high}</li>
+          <li>Low: {stock.low}</li>
+        </ul>
+      </div>
+    );
   }
 }
 
