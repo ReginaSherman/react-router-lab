@@ -6,6 +6,17 @@ import About from "./About";
 import Stock from "./Stock";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      stock: {}
+    };
+  }
+
+  setStock = stock => {
+    this.setState({ stock });
+  };
+
   render() {
     return (
       <div>
@@ -29,6 +40,8 @@ class App extends Component {
                 <Stock
                   match={routerProps.match}
                   stocksData={this.props.stocksData}
+                  stock={this.state.stock}
+                  setStock={this.setStock}
                 />
               );
             }}

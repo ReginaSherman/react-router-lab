@@ -1,26 +1,22 @@
 import React, { Component } from "react";
 
 class Stock extends Component {
+  componentDidMount() {
+    const url = `https://api.iextrading.com/1.0/tops?symbols=
+      ${this.props.match.params.symbol}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        console.log(response);
+        this.props.setStock(response[0]);
+      });
+  }
   render() {
-    // look for the specific stock in our stock database
-    // let result;
-    // for (let i = 0; i < this.props.stocksData.length; i++) {
-    //   if (this.props.stocksData[i].symbol === this.props.match.params.symbol) {
-    //     result = this.props.stocksData[i];
-    //   }
-    // }
-
-    let result = this.props.stocksData.find(
-      stock => stock.symbol === this.props.match.params.symbol
-    );
+    console.log(this.props.stock);
     return (
       <div>
-        <h2>
-          {result.name} {result.symbol}
-        </h2>
-        <ul>
-          <li>Current Price: {result.lastPrice}</li>
-        </ul>
+        <h2>{this.props.stock.symbol}</h2>
+        <h2>{this.props.stock.marketPercent}</h2>
       </div>
     );
   }
