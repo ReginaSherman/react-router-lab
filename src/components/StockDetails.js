@@ -7,32 +7,21 @@ const StockDetails = () => {
     const [ stocks, setStocks ] = useState(data)
     let { symbol } = useParams() 
 
-    const url = `https://cloud.iexapis.com/stable/stock`
+    const url = `https://cloud.iexapis.com/stable/stock/`
     const key = process.env.REACT_APP_LAB_KEY
-    let newURL = url + symbol + key
-
+    let newURL = `${url}${symbol}/${key}`
+    console.log(newURL)
     useEffect (() => {
         fetch(newURL)
         .then((res) => res.json())
         .then((json) => setStocks(json))
-        .catch((err) => console.log('No stock available'))
     }, [])
+
         return (
-            <div className='details-container'>
-                {stocks.map((item) => {
-                    if(item.symbol === symbol) {
-                    return (
-                    <>
-                        <h1>{ item.name }</h1>
-                        <h2>{ item.symbol }</h2>
-                        <h2>{ item.lastPrice }</h2>
-                        <h2>{ item.open }</h2>
-                        <h2>{ item.high }</h2>
-                        <h2>{ item.low }</h2>
-                        <h2>{ item.change }</h2>
-                    </>
-                    )}
-                })}
+            <div>
+                <h1>{ stocks.companyName }</h1>
+                <h2>Last Price: { stocks.latestPrice }</h2>
+               <h2>Change: { stocks.change }</h2>
             </div>
         )
     }

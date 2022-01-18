@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 
 const Stock = ({information}) => {
     
-console.log(information)
     return (
         <section className='container'>
             {information.map(info => {
